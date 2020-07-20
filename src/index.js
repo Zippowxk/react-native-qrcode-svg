@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import Svg, {
   Defs,
   G,
@@ -84,9 +84,9 @@ const QRCode = ({
   getRef,
   onError
 }) => {
-  const result = useMemo(() => {
+let result;
     try {
-      return transformMatrixIntoPath(genMatrix(value, ecl), size)
+      result = transformMatrixIntoPath(genMatrix(value, ecl), size)
     } catch (error) {
       if (onError && typeof onError === 'function') {
         onError(error)
@@ -95,7 +95,6 @@ const QRCode = ({
         throw error
       }
     }
-  }, [value, size, ecl])
 
   if (!result) {
     return null
